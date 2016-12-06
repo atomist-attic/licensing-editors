@@ -6,6 +6,8 @@ import {PathExpressionEngine, PathExpression} from '@atomist/rug/tree/PathExpres
 
 import {parameter, inject, parameters, tag, editor} from '@atomist/rug/support/Metadata'
 
+import * as yaml from '@types/js-yaml'
+
 class LicenseParams extends ParametersSupport {
   @parameter({required: true, description: "The name of the license to add. ", displayName: "License Name", pattern: "@url", maxLength: 20})
   licenseName: string = null
@@ -34,12 +36,16 @@ class AddLicenseFile implements ProjectEditor<LicenseParams> {
     let licenseFiles: File[] = project.files().filter(isLicense)
 
     if(licenseFiles.length < 1){
-        let filename = params.licenseName + ".yml"
-        let editorProject = project.backingArchiveProject()
-        editorProject.files().forEach(t => console.log(t.path()))
-        let pe = new PathExpression<Project,Yml>(".//*[name='" + filename +"']->yml")
-
-        let licenseYml: Yml = this.eng.scalar(editorProject, pe)
+      let yamls = yaml.loadAll(project.backingArchiveProject().findFile(params.licenseName + ".yml").content(), (t => console.log(t)))
+      console.log(yamls)
+    //  let yamls = jsyaml.loadAll()
+        //let filename = params.licenseName + ".yml"
+      //  let licenseYaml = jsyaml
+        // let editorProject = project.backingArchiveProject()
+        // editorProject.files().forEach(t => console.log(t.path()))
+        // let pe = new PathExpression<Project,Yml>(".//*[name='" + filename +"']->yml")
+        //
+        // let licenseYml: Yml = this.eng.scalar(editorProject, pe)
 
         //project.copyEditorBackingFileOrFail(filename, "LICENSE")
         return new Result(Status.Success, "License file added")

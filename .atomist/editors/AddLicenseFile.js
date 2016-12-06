@@ -18,8 +18,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var Parameters_1 = require("@atomist/rug/operations/Parameters");
 var Result_1 = require("@atomist/rug/operations/Result");
-var PathExpression_1 = require("@atomist/rug/tree/PathExpression");
 var Metadata_1 = require("@atomist/rug/support/Metadata");
+var yaml = require("@types/js-yaml");
 var LicenseParams = (function (_super) {
     __extends(LicenseParams, _super);
     function LicenseParams() {
@@ -33,6 +33,7 @@ __decorate([
     Metadata_1.parameter({ required: true, description: "The name of the license to add. ", displayName: "License Name", pattern: "@url", maxLength: 20 }),
     __metadata("design:type", String)
 ], LicenseParams.prototype, "licenseName", void 0);
+//return true iff file is a license file
 function isLicense(f) {
     var path = f.path().toLowerCase();
     return path == "license" || path == "license.txt" || path == "license.md";
@@ -44,11 +45,17 @@ var AddLicenseFile = (function () {
     AddLicenseFile.prototype.edit = function (project, params) {
         var licenseFiles = project.files().filter(isLicense);
         if (licenseFiles.length < 1) {
-            var filename = params.licenseName + ".yml";
-            var editorProject = project.backingArchiveProject();
-            editorProject.files().forEach(function (t) { return console.log(t.path()); });
-            var pe = new PathExpression_1.PathExpression(".//*[name='" + filename + "']->yml");
-            var licenseYml = this.eng.scalar(editorProject, pe);
+            var yamls = yaml.loadAll(project.backingArchiveProject().findFile(params.licenseName + ".yml").content(), (function (t) { return console.log(t); }));
+            console.log(yamls);
+            //  let yamls = jsyaml.loadAll()
+            //let filename = params.licenseName + ".yml"
+            //  let licenseYaml = jsyaml
+            // let editorProject = project.backingArchiveProject()
+            // editorProject.files().forEach(t => console.log(t.path()))
+            // let pe = new PathExpression<Project,Yml>(".//*[name='" + filename +"']->yml")
+            //
+            // let licenseYml: Yml = this.eng.scalar(editorProject, pe)
+            //project.copyEditorBackingFileOrFail(filename, "LICENSE")
             return new Result_1.Result(Result_1.Status.Success, "License file added");
         }
     };
