@@ -19,8 +19,7 @@
   },
   "homepage": "https://github.com/atomist/licensing-editors#readme",
   "dependencies": {
-    "@atomist/rug": "0.4.4-SNAPSHOT",
-    "@types/js-yaml": "^3.5.28",
-    "js-yaml": "^3.7.0"
+    "@atomist/rug": "0.4.6",
+    "@types/js-yaml": "^3.5.28"
   }
 }
