@@ -11,11 +11,9 @@ import * as yaml from "js-yaml"
 class LicenseParams extends ParametersSupport {
   @parameter({required: true, description: "The name of the license to add. ", displayName: "License Name", pattern: "^.*$", maxLength: 20})
   licenseName: string = null
-
-
-
 }
-//return true iff file is a license file
+
+//return true if file is a license file
 function isLicense(f: File) {
   let path = f.path().toLowerCase()
   return path == "license" || path == "license.txt" || path == "license.md";
@@ -47,10 +45,10 @@ class AddLicenseFile implements ProjectEditor<LicenseParams> {
     let licenseFiles: File[] = project.files().filter(isLicense)
 
     if(licenseFiles.length < 1){
-      console.log("Adding LICENSE file...")
+      console.log("  Adding LICENSE file...")
       project.addFile("LICENSE",strings[2])
     }else if(licenseFiles.length == 1){
-      console.log("Updating LICENSE file...")
+      console.log("  Updating LICENSE file...")
       licenseFiles[0].setContent(strings[2])
     }else{
       throw Error(`Found too many license files wasn't sure what to do`)
