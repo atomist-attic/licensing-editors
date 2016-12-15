@@ -7,11 +7,6 @@ This [Rug](http://docs.atomist.com/) archive has editors that manage
 license files and copyright notices in software projects.  License
 files come from http://choosealicense.com/ .
 
-Supported operations:
--  \<licenseName - name of a file from .atomist/templates without the .yml\>
-
-e.g. `rug edit -C /tmp AddLicenseFile licenseName="agpl-3.0"`
-
 ## Rugs
 
 ### AddLicenseFile
