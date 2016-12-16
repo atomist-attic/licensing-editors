@@ -7,19 +7,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/atomist-rugs/licensing-editors/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/atomist-rugs/licensing-editors/compare/0.2.0...HEAD
 
 ## [0.2.0] - 2016-12-16
 
 [0.2.0]: https://github.com/atomist-rugs/licensing-editors/compare/0.1.0...0.2.0
 
-Double testing release
+Double testing release & move to new Typescript programming model
 
 ### Added
 
 -   AddLicenseFileTwice editor to allow testing of idempotency
 
 -   Tests
+
+### Changed
+
+-  New Typescript programming model
 
 ## [0.1.0] - 2016-12-15
 
