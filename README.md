@@ -52,43 +52,6 @@ found in the project, the license will be put in a file named
 case insensitive), the contents of that file will be replaced with the
 provided license.  If you like the changes, commit them.
 
-### AddLicenseFileTwice
-
-The AddLicenseFileTwice editor runs AddLicenseFile twice.  This Editor
-serves no real purpose other than to allow you to test ridempotency of
-the AddLicenseFile Editor.
-
-#### Prerequisites
-
-This Editor has the same prerequisites as the AddLicenseFile Editor.
-
-*   A project with zero or one license file
-
-#### Parameters
-
-To run this editor, you must supply the following parameters.
-
-*   `first_license_name`: The name of the license to add to the
-    project first.  See the `license_name` parameter to the
-    AddLicenseFile for more details.
-*   `second_license_name`: The name of the license to add to the
-    project first.  See the `license_name` parameter to the
-    AddLicenseFile for more details.
-
-#### Running
-
-Run it as follows:
-
-```
-$ cd to/your/project
-$ rug edit atomist-rugs:licensing-editors:AddLicenseFileTwice \
-    first_license_name=mit \
-    second_license_file=bsd-3-clause
-```
-
-This will add the MIT license to the project and then overwrite it
-with the BSD 3-Clause license.
-
 ## Support
 
 General support questions should be discussed in the `#support`
