@@ -15,27 +15,19 @@
  */
 
 import { Project, File, Yml } from '@atomist/rug/model/Core'
-import { ParametersSupport, Parameters } from '@atomist/rug/operations/Parameters'
 import { ProjectEditor } from '@atomist/rug/operations/ProjectEditor'
-import { Result, Status } from '@atomist/rug/operations/Result'
-import { PathExpressionEngine, PathExpression } from '@atomist/rug/tree/PathExpression'
+import { Result, Status, Parameter} from '@atomist/rug/operations/RugOperation'
 
-import { parameter, inject, parameters, tag, editor } from '@atomist/rug/support/Metadata'
-
-import * as yaml from "js-yaml"
-
-class LicenseParams extends ParametersSupport {
-    @parameter({
-        required: true,
-        description: "the name of the license to add to project",
-        displayName: "License Name",
-        validInput: "the name of a license template without the .yml extension, see https://github.com/atomist-rugs/licensing-editors/tree/master/.atomist/templates",
-        pattern: "^\\w[-\\w.]*$",
-        minLength: 1,
-        maxLength: 20,
-    })
-    license_name: string = null
-}
+let params: Parameter[] = [
+        {required: true,
+          description: "the name of the license to add to project",
+          displayName: "License Name",
+          validInput: "the name of a license template without the .yml extension, see https://github.com/atomist-rugs/licensing-editors/tree/master/.atomist/templates",
+          pattern: "^\\w[-\\w.]*$",
+          minLength: 1,
+          maxLength: 20,
+          name: "license_name"}
+]
 
 //return true if file is a license file
 function isLicense(f: File) {
@@ -43,29 +35,19 @@ function isLicense(f: File) {
     return path == "license" || path == "license.txt" || path == "license.md";
 }
 
-@editor("Add a license file to a project")
-@tag("license")
-@tag("licensing")
-@tag("copyright")
-@tag("documentation")
-class AddLicenseFile implements ProjectEditor<LicenseParams> {
+let editor: ProjectEditor = {
+    tags: ["license", "licensing", "copyright", "documentation"],
+    name: "AddLicenseFile",
+    description: "Add a license fiel to a project",
+    parameters: params,
+    edit(project: Project, {license_name} : {license_name: string}) {
 
-    private eng: PathExpressionEngine;
-
-    constructor( @inject("PathExpressionEngine") _eng: PathExpressionEngine) {
-        this.eng = _eng;
-    }
-
-    edit(project: Project, @parameters("LicenseParams") params: LicenseParams) {
-
-        let licenseFileName = ".atomist/templates/" + params.license_name + ".yml"
+        let licenseFileName = ".atomist/templates/" + license_name + ".yml"
         let licenseFile = project.backingArchiveProject().findFile(licenseFileName)
         if (licenseFile == null) {
             throw Error(`Unable to find licenseFile: ${licenseFileName}`)
         }
         let strings = licenseFile.content().split("---")
-
-        let details = yaml.safeLoad(strings[1])
 
         let licenseFiles: File[] = project.files().filter(isLicense)
 

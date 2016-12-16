@@ -44,19 +44,3 @@ then
   fileExists licenseFile
 	and fileContains licenseFile "MIT License"
 	and fileContains licenseFile "without restriction"
-
-
-scenario AddLicenseFile should be able to run twice
-
-let licenseFile = "LICENSE"
-
-given
-  Empty
-
-when
-  AddLicenseFileTwice first_license_name = "mit", second_license_name = "artistic-2.0"
-
-then
-  fileExists licenseFile
-	and fileContains licenseFile "Artistic License 2.0"
-	and fileContains licenseFile "Perl Foundation"
