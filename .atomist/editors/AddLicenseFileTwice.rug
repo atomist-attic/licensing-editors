@@ -1,0 +1,38 @@
+/*
+ * Copyright © 2016 Atomist, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@description "runs AddLicenseFile twice for testing"
+@tag "license"
+@tag "documentation"
+@tag "test"
+editor AddLicenseFileTwice
+
+@displayName "First License File"
+@description "name of the first license file to add"
+@validInput "the name of a license template without the .yml extension, see https://github.com/atomist-rugs/licensing-editors/tree/master/.atomist/templates"
+@minLength 1
+@maxLength 20
+param first_license_name: ^\w[-\w.]*$
+
+@displayName "Second License File"
+@description "name of the second license file to add"
+@validInput "the name of a license template without the .yml extension, see https://github.com/atomist-rugs/licensing-editors/tree/master/.atomist/templates"
+@minLength 1
+@maxLength 20
+param second_license_name: ^\w[-\w.]*$
+
+AddLicenseFile license_name = first_license_name
+AddLicenseFile license_name = second_license_name
