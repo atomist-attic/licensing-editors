@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unreleased]: https://github.com/atomist-rugs/licensing-editors/compare/0.2.0...HEAD
 
+### Changed
+
+-   Updated rug to 0.8.x
+-   Added manifest.yml as per new requirement in CLI
+
 ## [0.2.0] - 2016-12-16
 
 [0.2.0]: https://github.com/atomist-rugs/licensing-editors/compare/0.1.0...0.2.0
