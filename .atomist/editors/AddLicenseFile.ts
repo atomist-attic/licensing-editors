@@ -35,7 +35,7 @@ function isLicense(f: File) {
     return path == "license" || path == "license.txt" || path == "license.md";
 }
 
-let editor: ProjectEditor = {
+export let editor: ProjectEditor = {
     tags: ["license", "licensing", "copyright", "documentation"],
     name: "AddLicenseFile",
     description: "Add a license fiel to a project",

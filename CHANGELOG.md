@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 [Unreleased]: https://github.com/atomist-rugs/licensing-editors/compare/0.3.0...HEAD
 
+### Changed
+
+-   Update to rug 0.10.0
+-   Export vars as per new common-js module requirements
+
 ## [0.3.0] - 2017-01-06
 
 Updrade to rug 0.8.x release
