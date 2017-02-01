@@ -47,16 +47,19 @@ export let editor: ProjectEditor = {
         if (licenseFile == null) {
             throw Error(`Unable to find licenseFile: ${licenseFileName}`)
         }
-        let strings = licenseFile.content().split("---")
+
+        let yamlDocumentSeparator = '---'
+        let strings = licenseFile.content().split(yamlDocumentSeparator)
+        let licenseText = strings.slice(2).join(yamlDocumentSeparator)
 
         let licenseFiles: File[] = project.files().filter(isLicense)
 
         if (licenseFiles.length < 1) {
             console.log("  Adding LICENSE file...")
-            project.addFile("LICENSE", strings[2])
+            project.addFile("LICENSE", licenseText)
         } else if (licenseFiles.length == 1) {
             console.log("  Updating LICENSE file...")
-            licenseFiles[0].setContent(strings[2])
+            licenseFiles[0].setContent(licenseText)
         } else {
             throw Error(`Found too many license files wasn't sure what to do`)
         }

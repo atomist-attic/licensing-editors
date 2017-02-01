@@ -44,3 +44,19 @@ then
   fileExists licenseFile
 	and fileContains licenseFile "MIT License"
 	and fileContains licenseFile "without restriction"
+
+
+scenario AddLicenseFile should add a full content of license
+
+let licenseFile = "LICENSE"
+
+given
+  Empty
+
+when
+  AddLicenseFile license_name = "mpl-2.0"
+
+then
+  fileExists licenseFile
+	and fileContains licenseFile "1. Definitions"
+	and fileContains licenseFile "--------------"
